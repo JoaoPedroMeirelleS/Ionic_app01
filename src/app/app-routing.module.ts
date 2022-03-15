@@ -16,17 +16,34 @@ const routes: Routes = [
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: 'xp',
-    loadChildren: () => import('./pages/xp/xp.module').then( m => m.XpPageModule)
+    path: 'user',
+    loadChildren: () => import('./page/user/user.module').then( m => m.UserPageModule)
   },
   {
-    path: 'skills',
-    loadChildren: () => import('./pages/skills/skills.module').then( m => m.SkillsPageModule)
+    path: 'contacts',
+    loadChildren: () => import('./page/contacts/contacts.module').then( m => m.ContactsPageModule)
   },
   {
-    path: 'schools',
-    loadChildren: () => import('./pages/schools/schools.module').then( m => m.SchoolsPageModule)
+    path: 'about',
+    loadChildren: () => import('./page/about/about.module').then( m => m.AboutPageModule)
+  },
+  {
+    path: 'docs',
+    loadChildren: () => import('./page/docs/docs.module').then( m => m.DocsPageModule)
+  },
+  {
+    path: 'faq',
+    loadChildren: () => import('./db/faq/faq.module').then( m => m.FaqPageModule)
+  },
+  {
+    path: 'db/faq',
+    loadChildren: () => import('./db/faq/faq.module').then( m => m.FaqPageModule)
+  },
+  {
+    path: '**',
+    loadChildren: () => import('./page/e404/e404.module').then( m => m.E404PageModule)
   }
+
 ];
 
 @NgModule({
