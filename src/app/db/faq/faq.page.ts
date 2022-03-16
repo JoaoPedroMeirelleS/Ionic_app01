@@ -68,3 +68,4 @@ export class FaqPage implements OnInit {
 
 }
 
+

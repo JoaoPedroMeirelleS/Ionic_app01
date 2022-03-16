@@ -13,7 +13,7 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./page/home/home.module').then( m => m.HomePageModule)
   },
   {
     path: 'user',
@@ -40,9 +40,18 @@ const routes: Routes = [
     loadChildren: () => import('./db/faq/faq.module').then( m => m.FaqPageModule)
   },
   {
+    path: 'faq',
+    loadChildren: () => import('./page/faq/faq.module').then( m => m.FaqPageModule)
+  },
+   {
+    path: 'manual',
+    loadChildren: () => import('./db/manual/manual.module').then( m => m.ManualPageModule)
+  },
+  {
     path: '**',
     loadChildren: () => import('./page/e404/e404.module').then( m => m.E404PageModule)
   }
+
 
 ];
 
