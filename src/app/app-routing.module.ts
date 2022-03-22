@@ -55,16 +55,32 @@ const routes: Routes = [
     path: 'view/:id',
     loadChildren: () => import('./page/view/view.module').then( m => m.ViewPageModule)
   },
+  {
+    path: 'usuario/login',
+    loadChildren: () => import('./user/login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'usuario/logout',
+    loadChildren: () => import('./user/logout/logout.module').then( m => m.LogoutPageModule)
+  },
+  {
+    path: 'usuario/perfil',
+    loadChildren: () => import('./user/profile/profile.module').then( m => m.ProfilePageModule)
+  },
+  {
+    path: 'test1',
+    loadChildren: () => import('./test/test1/test1.module').then( m => m.Test1PageModule)
+  },
 
   /**
+   * Oooops! Atenção!
    * Esta rota (path: '**') deve ser SEMPRE a última rota desta lista.
    * Se criar novas páginas, edite este arquivo para satisfazer a regra acima.
    */
   {
     path: '**',
     loadChildren: () => import('./page/e404/e404.module').then(m => m.E404PageModule)
-  },
-
+  }
 ];
 
 @NgModule({

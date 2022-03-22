@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
-// Importando dependências
-import { ActivatedRoute } from '@angular/router';
+// Importa dependências
+import { ActivatedRoute, Router } from '@angular/router';
 import { initializeApp } from 'firebase/app';
-import { doc, getFirestore, onSnapshot } from 'firebase/firestore';
+import { doc, getDoc, getFirestore, updateDoc } from 'firebase/firestore';
 import { environment } from 'src/environments/environment';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 
 @Component({
   selector: 'app-view',
@@ -19,32 +20,58 @@ export class ViewPage implements OnInit {
   // Conexão com o Firebase
   app = initializeApp(environment.firebase);
 
-  // Conexão com o banco de dados
+  // Conexão com o banco de dadosKw
   db = getFirestore();
 
   // Armazena o artigo completo
   art: any;
 
+  // Variável que armazena dados do usuário logado
+  user: any;
+
   constructor(
-    private activatedRoute: ActivatedRoute
+
+    // Injeta dependências
+    private activatedRoute: ActivatedRoute,
+    private route: Router,
+    public auth: AngularFireAuth
   ) { }
 
-  ngOnInit() {
+  // 'ngOnInit()' deve ser 'async' por causa do 'await' usado logo abaixo!
+  async ngOnInit() {
 
+    // Obtém o ID do artigo a ser exibido, da rota (URL)
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
 
-    onSnapshot(doc(this.db, 'manual', this.id), (myArt) => {
+    // Obtém o artigo inteiro à partir do ID deste
+    const myArt = await getDoc(doc(this.db, 'manual', this.id));
+
+    // Se o artigo foi encontrado...
+    if (myArt.exists()) {
 
       // Armazena o artigo em 'art'
       this.art = myArt.data();
 
-      console.log(this.art);
-    });
+      // Incrementa 'views' do artigo
+      updateDoc(doc(this.db, 'manual', this.id), {
+        views: (parseInt(this.art.views, 10) + 1).toString()
+      });
 
+      // Se não foi encontrado...
+    } else {
+
+      // Volta para a lista de artigos
+      this.route.navigate(['/usuarios']);
+    }
+
+    // Verifica se tem usuario logado
+    this.auth.authState.subscribe(user => {
+      if (user) {
+
+        // Armazena os dados do usuário em 'this.user'
+        this.user = user;
+      }
+    });
   }
 
 }
-
-
-
-
