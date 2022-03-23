@@ -11,7 +11,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 export class ProfilePage implements OnInit {
 
   // Variável que armazena dados do usuário logado
-  user: any;
+  public userData: any;
 
   constructor(
 
@@ -24,16 +24,10 @@ export class ProfilePage implements OnInit {
     // Verifica se esta logado
     this.auth.authState.subscribe(user => {
       if (user) {
-        this.user = user;
+        this.userData = user;
       }
     });
 
-  }
-
-  // Envia usuário para perfil do Google em uma nova aba/janela do navegador
-  toGoogle() {
-    window.open('https://myaccount.google.com/');
-    return false;
   }
 
 }
