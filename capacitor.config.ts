@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'App01',
+  appId: 'net.luferat.mydocsapp.manual',
+  appName: 'MyDocsApp Manual',
   webDir: 'www',
   bundledWebRuntime: false
 };
